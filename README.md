@@ -1,10 +1,7 @@
 # FMR-HD
 CVPR2025
 
-# IFCap
-IFCap: Image-like Retrieval and Frequency-based Entity Filtering for Zero-shot Captioning, EMNLP2024
 
-![poster_emnlp](https://github.com/user-attachments/assets/05bd3d10-627e-4e5f-84ed-0df12e172784)
 
 ---
 ### Conda environment
