@@ -1,8 +1,3 @@
-# FMR-HD
-CVPR2025
-
-
-
 ---
 ### Conda environment
 ```bash
