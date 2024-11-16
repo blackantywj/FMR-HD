@@ -1,4 +1,14 @@
+# FMR & HD (CVPR2025 Submission)
+
+## Methods' framework
+1. **Entitiy Extractor**
+![图片1](.\img\fram1.png)
+2. **Filtered Mix Represetation**
+![图片2](.\img\fram2.png)
+3. **Hallucination Degeneration**
+![图片3](.\img\fram3.png)
 ---
+
 ### Conda environment
 ```bash
 conda create -n ifcap python=3.9
