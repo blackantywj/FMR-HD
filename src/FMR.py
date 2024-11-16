@@ -103,9 +103,9 @@ def main(datasets, encoder, proprecess, annotations, outpath, alpha):
 
                 mixed_patch_feature = torch.cat(mixed_patch_feature, dim=0)
                 mixed_patch_feature = F.normalize(mixed_patch_feature, dim=-1)
-                fmr = cls_features.unsqueeze(1) + mixed_patch_feature
-                fmr = fmr.squeeze(0)
-            results.append([image_id, fmr, caption])
+                FMR = cls_features.unsqueeze(1) + mixed_patch_feature
+                FMR = FMR.squeeze(0)
+            results.append([image_id, FMR, caption])
 
     else: # nocaps
         # format = [{'split': 'near_domain', 'image_id': '4499.jpg', 'caption': [caption1, caption2, ...]}, ...]
@@ -134,7 +134,7 @@ def main(datasets, encoder, proprecess, annotations, outpath, alpha):
                 clip_conx = img_context @ img_proj
                 clip_conx /= clip_conx.norm(dim=-1, keepdim=True)
 
-                top_cls_patch_ids = find_similar_indices(clip_conx, text_cls, 0.20).unsqueeze(0)
+                top_cls_patch_ids = find_similar_indices(clip_conx, text_cls, alpha).unsqueeze(0)
                 mixed_patch_feature = []
                 for idx in range(bs):
                     tp_idx = top_cls_patch_ids[idx]
@@ -144,17 +144,12 @@ def main(datasets, encoder, proprecess, annotations, outpath, alpha):
 
                 mixed_patch_feature = torch.cat(mixed_patch_feature, dim=0)
                 mixed_patch_feature = F.normalize(mixed_patch_feature, dim=-1)
-                similarity_ori = cosine_similarity(cls_features, text_cls)
                 if mixed_patch_feature.shape[1] != 0:
-
-                    cls_features_1 = cls_features.unsqueeze(1) + mixed_patch_feature
-                    cls_features_1 = cls_features_1.squeeze(0)
-                    similarity_aft = cosine_similarity(cls_features_1, text_cls)
-                    if similarity_aft < similarity_ori:
-                        cls_features_1 = cls_features
+                    FMR = cls_features.unsqueeze(1) + mixed_patch_feature
+                    FMR = FMR.squeeze(0)
                 else:
-                    cls_features_1 = cls_features
-            results.append([image_id, split, cls_features_1, caption])
+                    FMR = cls_features
+            results.append([image_id, split, FMR, caption])
 
     with open(outpath, 'wb') as outfile:
         pickle.dump(results, outfile)

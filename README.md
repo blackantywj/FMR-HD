@@ -11,8 +11,8 @@
 
 ### Conda environment
 ```bash
-conda create -n ifcap python=3.9
-conda activate ifcap
+conda create -n env python=3.9
+conda activate env
 pip install -r requirements.txt
 ```
 
@@ -26,22 +26,22 @@ For COCO,
 ```
 # place your coco images in annotations/coco/val2014
 
-# image-like retrieval
+# Text retrieval
 python src/image_like_retrieval.py
 
-# entity filtering
-python src/entity_filtering.py # with IDX=0
+# Extract all entities
+python src/entity_extractor.py # with IDX=0
 ```
 
 For Flickr30k,
 ```
 # place your flickr30k images in annotations/flickr30k/flickr30k-images
 
-# image-like retrieval
+# Text retrieval
 python src/image_like_retrieval.py --domain_source flickr30k --domain_test flickr30k --L 7
 
-# entity filtering
-python src/entity_filtering.py # with IDX=1
+# Extract all entities
+python src/entity_extractor.py # with IDX=1
 ```
 
 For NoCaps,
@@ -51,62 +51,14 @@ For NoCaps,
 cd annotations/nocaps/
 python download.py 
 
-# image-to-text retrieval
+# Text retrieval
 python src/image_like_retrieval.py --test_only --domain_test nocaps --L 7
 ```
 
-### Training
-For COCO,
-```
-# bash scripts/train_coco.sh CUDA_DEVICE TEST_NAME RT_PATH
-bash scripts/train_coco.sh 0 coco annotations/coco/coco_train_seed30_var0.04.json
-```
+## Training and Inference
 
-For Flickr30k
 ```
-# bash scripts/train_flickr30k.sh CUDA_DEVICE TEST_NAME RT_PATH
-bash scripts/train_flickr30k.sh 0 flickr annotations/flickr30k/flickr30k_train_seed30_var0.04.json
-```
-
-### Inference
-[COCO]
-```
-bash scripts/eval_coco.sh train_coco 0 \
-	'--entity_filtering --retrieved_info caption_coco_image_coco_9.json --K 5' \
-	coco-indomain \
-	4
-```
-
-[Flickr30k]
-```
-bash scripts/eval_flickr30k.sh train_flickr30k 0 \
-	'--entity_filtering --retrieved_info caption_flickr30k_image_flickr30k_7.json --K 3' \
-	flickr-indomain \
-	14
-```
-
-[NoCaps]
-```
-bash scripts/eval_nocaps.sh train_coco 0 \
-	'--retrieved_info caption_coco_image_nocaps_7.json' \
-	coco-indomain \
-	5
-```
-
-[COCO -> Flickr30k]
-```
-bash scripts/eval_flickr30k.sh train_coco 0 \
-	'--entity_filtering --retrieved_info caption_flickr30k_image_flickr30k_7.json --K 3' \
-	coco-indomain \
-	5
-```
-
-[Flickr30k -> COCO]
-```
-bash scripts/eval_coco.sh train_flickr30k 0 \
-	'--entity_filtering --retrieved_info caption_coco_image_coco_9.json --K 4' \
-	flickr-indomain \
-	14
+Please Follow the original paper and their repo.
 ```
 
 ## Citation
