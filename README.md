@@ -2,11 +2,11 @@
 
 ## Methods' framework
 1. **Entitiy Extractor**
-![图片1](.\img\fram1.png)
+![图片1](img/fram1.png)
 2. **Filtered Mix Represetation**
-![图片2](.\img\fram2.png)
-3. **Hallucination Degeneration**
-![图片3](.\img\fram3.png)
+![图片2](img/fram2.png)
+1. **Hallucination Degeneration**
+![图片3](img/fram3.png)
 ---
 
 ### Conda environment
